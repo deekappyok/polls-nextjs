@@ -77,7 +77,7 @@ export default function PollResults() {
     <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full mx-auto relative mt-12">
         {/* Return Icon */}
         <button
-            onClick={() => router.push("/")} // Go back to the previous page
+            onClick={() => router.back()} // Go back to the previous page
             className="absolute top-4 left-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition"
         >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-gray-800">

@@ -50,9 +50,9 @@ export default function CreatePoll() {
     
                 toast.success("Poll created successfully!");
 
-                setTimeout(() => {
-                    router.push(`/poll/${data?.id}/vote`);
-                  }, 1500);    
+          setTimeout(() => {
+            router.push(`/poll/${data?.id}/vote`);
+          }, 1500);    
                 // Reset form
                 setQuestion("");
                 setDescription("");

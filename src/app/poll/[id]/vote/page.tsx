@@ -117,7 +117,7 @@ export default function VotePage() {
         </div>
 
         <button
-          onClick={() => router.push(`/polls/${poll.id}/results`)}
+          onClick={() => router.push(`/poll/${poll.id}/results`)}
           className="mt-4 bg-purple-400 hover:bg-purple-500 text-white font-semibold py-2 px-4 rounded-md transition"
         >
             View Results
