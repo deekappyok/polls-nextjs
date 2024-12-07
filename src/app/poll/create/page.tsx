@@ -1,13 +1,16 @@
 'use client';  // Ensures this is a client-side component
 
 import { useState } from "react";
-import { useRouter } from "next/router"; // Import the useRouter hook to handle navigation
+import { useRouter } from 'next/navigation'
+import { toast } from "react-toastify"; // Import the toast module to show notifications
 
 export default function CreatePoll() {
     const [question, setQuestion] = useState("");
     const [description, setDescription] = useState("");
     const [options, setOptions] = useState(["", ""]);
     const [pollId, setPollId] = useState<number | null>(null);
+    
+    const router = useRouter();
 
     // const router = useRouter(); // Initialize useRouter
 
@@ -27,32 +30,55 @@ export default function CreatePoll() {
     };
 
     const send = async () => {
-        // send request to create poll at /api/polls/create
-        const res = await fetch("/api/polls", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ question, description, options: options.filter((option) => option) }),
-        });
-
-        if (res.ok) {
-            const data = await res.json();
-            setPollId(data.id);
+        try {
+            // send request to create poll at /api/polls/create
+            const res = await fetch("/api/polls", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    question,
+                    description,
+                    options: options.filter((option) => option),
+                }),
+            });
+    
+            if (res.ok) {
+                const data = await res.json();
+                setPollId(data.id);
+    
+                toast.success("Poll created successfully!");
+    
+                // Reset form
+                setQuestion("");
+                setDescription("");
+                setOptions(["", ""]);
+            } else {
+                // Handle different error statuses
+                const errorData = await res.json();
+                if (res.status === 400) {
+                    toast.error(`Bad Request: ${errorData.error}`);
+                } else if (res.status === 409) {
+                    toast.warning(`Conflict: ${errorData.error}`);
+                } else if (res.status === 500) {
+                    toast.error("Internal Server Error: Something went wrong on the server.");
+                } else {
+                    toast.error(`Unexpected Error: ${errorData.error || 'Please try again later.'}`);
+                }
+            }
+        } catch (error) {
+            console.error("Error creating poll:", error);
+            toast.error("Network error: Could not reach the server. Please try again later.");
         }
-
-        // reset form
-        setQuestion("");
-        setDescription("");
-        setOptions(["", ""]);
     };
-
+    
     return (
         <section className="flex items-center justify-center min-h-screen bg-gray-50">
             <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full mx-auto relative mt-12">
                 {/* Return Icon */}
                 <button
-                    // onClick={() => router.back()} // Go back to the previous page
+                    onClick={() => router.push("/")} // Go back to the previous page
                     className="absolute top-4 left-4 p-2 bg-gray-200 rounded-full hover:bg-gray-300 transition"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6 text-gray-800">
