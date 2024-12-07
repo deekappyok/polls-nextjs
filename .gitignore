@@ -20,6 +20,12 @@
 # production
 /build
 
+# prisma
+/prisma/dev.db        # Ignore SQLite database files
+/prisma/dev.db-journal
+/prisma/.env          # Prisma-specific environment variables
+/prisma/migrations/   # Optionally ignore migrations if you manage them outside version control
+
 # misc
 .DS_Store
 *.pem
