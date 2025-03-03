@@ -8,7 +8,6 @@ export default function CreatePoll() {
     const [question, setQuestion] = useState("");
     const [description, setDescription] = useState("");
     const [options, setOptions] = useState(["", ""]);
-    const [pollId, setPollId] = useState<number | null>(null);
     
     const router = useRouter();
 
@@ -46,8 +45,7 @@ export default function CreatePoll() {
     
             if (res.ok) {
                 const data = await res.json();
-                setPollId(data.id);
-    
+                
                 toast.success("Poll created successfully!");
 
           setTimeout(() => {
