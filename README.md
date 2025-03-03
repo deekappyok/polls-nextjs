@@ -2,6 +2,8 @@
 
 A simple, fast, and secure polling app built with **Next.js**, **Prisma**, and **PostgreSQL**. Create polls, vote, and view results—all while leveraging **Cloudflare** for security and performance.
 
+**LIVE PREVIEW**: https://polls-nextjs.vercel.app
+
 ## Features
 
 - **Create Polls**: Easily create polls with a question and multiple options.
