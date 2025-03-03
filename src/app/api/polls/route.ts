@@ -131,7 +131,7 @@ export async function PUT(request: Request) {
         }
 
         // Check if the option exists in the poll
-        const option = poll.options.find((opt) => opt.id === optionId);
+        const option = poll.options.find((opt: any) => opt.id === optionId);
         if (!option) {
             return NextResponse.json(
                 { error: 'Invalid option ID' },
